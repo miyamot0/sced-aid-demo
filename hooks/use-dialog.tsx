@@ -6,6 +6,7 @@ export const KEY_DIALOG = "scda-dialogs";
 export type SCDADialogObject = {
   data?: SCDADataObject;
   records?: SCDADataObject[];
+  type?: "add" | "delete" | "edit";
 };
 
 const default_settings = {

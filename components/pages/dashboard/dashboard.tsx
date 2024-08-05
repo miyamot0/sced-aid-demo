@@ -1,11 +1,9 @@
 "use client";
 
-import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import {
-  TableCaption,
   TableHeader,
   TableRow,
   TableHead,
@@ -13,14 +11,9 @@ import {
   TableCell,
   Table,
 } from "@/components/ui/table";
-import {
-  KEY_RECORDS,
-  saveRecordsToLocal,
-  useRecords,
-} from "@/hooks/use-storage";
-import { EllipsisIcon, PlusIcon, PlusSquareIcon } from "lucide-react";
+import { useRecords } from "@/hooks/use-storage";
+import { EllipsisIcon, PlusIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,42 +22,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
-import {
-  AlertDialogHeader,
-  AlertDialogFooter,
-} from "@/components/ui/alert-dialog";
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from "@radix-ui/react-alert-dialog";
-import { DialogHeader } from "@/components/ui/dialog";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { KEY_DIALOG, updateDialogState } from "@/hooks/use-dialog";
-
-const ActiveIndicator = ({ active }: { active: boolean }) => {
-  return (
-    <div
-      className={cn("h-3 w-3 rounded-full border", {
-        "bg-green-400": active,
-      })}
-    >
-      <span className="sr-only">{active ? "Active" : "Disabled"}</span>
-    </div>
-  );
-};
+import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
   const dashboardData = useRecords();
@@ -79,26 +39,6 @@ export default function DashboardPage() {
     return <div>Error</div>;
   }
 
-  function handleUpdatedRecords() {
-    const new_record = {
-      id: uuidv4(),
-      created_utc: new Date().toISOString(),
-      updated_utc: new Date().toISOString(),
-      title: "New Record",
-      active: true,
-    };
-
-    saveRecordsToLocal([...(dashboardData.data ?? []), new_record]);
-
-    queryClient.invalidateQueries({ queryKey: [KEY_RECORDS] });
-
-    toast("New Record Created", {});
-  }
-
-  /*
-                        
- */
-
   return (
     <>
       <Card className="my-4">
@@ -110,7 +50,18 @@ export default function DashboardPage() {
             variant={"outline"}
             className="flex flex-row gap-2"
             onClick={() => {
-              handleUpdatedRecords();
+              updateDialogState({
+                data: undefined,
+                records: dashboardData.data,
+                type: "add",
+              });
+
+              queryClient.invalidateQueries({
+                queryKey: [KEY_DIALOG],
+              });
+              queryClient.refetchQueries({
+                queryKey: [KEY_DIALOG],
+              });
             }}
           >
             <PlusIcon className="w-6 h-6 text-gray-500" />
@@ -121,60 +72,92 @@ export default function DashboardPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Updated</TableHead>
+                <TableHead>Entry Name</TableHead>
+                <TableHead>Last Updated</TableHead>
                 <TableHead className="text-right"></TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
-              {dashboardData.data.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell>
-                    <div className="flex flex-row gap-2 items-center">
-                      {record.title}
-                      <div className="h-3 w-3 bg-green-700 rounded-full border">
-                        <span className="sr-only">Active</span>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{record.updated_utc}</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <div className="p-2 border rounded-lg">
-                          <EllipsisIcon />
-                        </div>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>Settings</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Data Storage</DropdownMenuItem>
-                        <DropdownMenuItem>Visual Options</DropdownMenuItem>
-                        <DropdownMenuItem>Data Export</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onClick={() => {
-                            updateDialogState({
-                              data: record,
-                              records: dashboardData.data,
-                            });
-
-                            queryClient.invalidateQueries({
-                              queryKey: [KEY_DIALOG],
-                            });
-                            queryClient.refetchQueries({
-                              queryKey: [KEY_DIALOG],
-                            });
-                          }}
+              {dashboardData.data
+                .sort((a, b) => {
+                  return (
+                    new Date(b.updated_utc).valueOf() -
+                    new Date(a.updated_utc).valueOf()
+                  );
+                })
+                .map((record) => (
+                  <TableRow key={record.id}>
+                    <TableCell>
+                      <div className="flex flex-row gap-2 items-center">
+                        {record.title}
+                        <div
+                          className={cn("h-3 w-3 rounded-full border", {
+                            "bg-green-300": record.active,
+                            "bg-orange-300": !record.active,
+                          })}
                         >
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
+                          <span className="sr-only">Active</span>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {new Date(record.updated_utc).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <div className="p-2 border rounded-lg">
+                            <EllipsisIcon />
+                          </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>
+                            Record Management
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => {
+                              updateDialogState({
+                                data: record,
+                                records: dashboardData.data,
+                                type: "edit",
+                              });
+
+                              queryClient.invalidateQueries({
+                                queryKey: [KEY_DIALOG],
+                              });
+                              queryClient.refetchQueries({
+                                queryKey: [KEY_DIALOG],
+                              });
+                            }}
+                          >
+                            Edit Record
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => {
+                              updateDialogState({
+                                data: record,
+                                records: dashboardData.data,
+                                type: "delete",
+                              });
+
+                              queryClient.invalidateQueries({
+                                queryKey: [KEY_DIALOG],
+                              });
+                              queryClient.refetchQueries({
+                                queryKey: [KEY_DIALOG],
+                              });
+                            }}
+                          >
+                            Delete Record
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </CardContent>

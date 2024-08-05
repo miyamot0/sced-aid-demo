@@ -3,6 +3,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import DashboardDeleteDialog from "../dialogs/dashboard-delete";
+import DashboardAddDialog from "../dialogs/dashboard-add";
+import DashboardEditDialog from "../dialogs/dashboard-edit";
 
 export default function ClientSideWrapper({
   children,
@@ -14,6 +16,8 @@ export default function ClientSideWrapper({
       {children}
 
       <DashboardDeleteDialog />
+      <DashboardAddDialog />
+      <DashboardEditDialog />
 
       <Toaster />
     </QueryClientProvider>

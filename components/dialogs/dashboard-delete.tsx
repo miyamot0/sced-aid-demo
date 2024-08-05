@@ -50,7 +50,7 @@ export default function DashboardDeleteDialog() {
 
   const object_info = data?.data;
 
-  if (object_info === undefined) {
+  if (object_info === undefined || data?.type !== "delete") {
     return null;
   }
 
@@ -73,7 +73,9 @@ export default function DashboardDeleteDialog() {
           <DialogDescription>
             <span>This action cannot be undone.</span>
             <div className="flex flex-row justify-end gap-2">
-              <Button onClick={() => close_dialog()}>Cancel</Button>
+              <Button variant={"outline"} onClick={() => close_dialog()}>
+                Cancel
+              </Button>
               <Button
                 variant={"destructive"}
                 onClick={() => {

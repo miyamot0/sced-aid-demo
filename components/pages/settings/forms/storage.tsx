@@ -7,7 +7,7 @@ import { useState } from "react";
 
 type SettingsPageOption = "storage" | "licenses";
 
-const LabelControl = ({
+export const LabelControl = ({
   Title,
   Description,
 }: {
