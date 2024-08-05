@@ -29,6 +29,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+} from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@radix-ui/react-alert-dialog";
+import { DialogHeader } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@radix-ui/react-dialog";
+import { useState } from "react";
+import { KEY_DIALOG, updateDialogState } from "@/hooks/use-dialog";
 
 const ActiveIndicator = ({ active }: { active: boolean }) => {
   return (
@@ -45,6 +69,7 @@ const ActiveIndicator = ({ active }: { active: boolean }) => {
 export default function DashboardPage() {
   const dashboardData = useRecords();
   const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   if (dashboardData.isLoading) {
     return <LoadingSpinner />;
@@ -66,68 +91,94 @@ export default function DashboardPage() {
     saveRecordsToLocal([...(dashboardData.data ?? []), new_record]);
 
     queryClient.invalidateQueries({ queryKey: [KEY_RECORDS] });
+
+    toast("New Record Created", {});
   }
 
-  return (
-    <Card className="my-4">
-      <CardHeader className="flex flex-row justify-between items-center">
-        <CardTitle>
-          Displaying Records ({`n = ${dashboardData.data?.length}`})
-        </CardTitle>
-        <Button
-          variant={"outline"}
-          className="flex flex-row gap-2"
-          onClick={() => {
-            handleUpdatedRecords();
-          }}
-        >
-          <PlusIcon className="w-6 h-6 text-gray-500" />
-          Add Record
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Updated</TableHead>
-              <TableHead className="text-right"></TableHead>
-            </TableRow>
-          </TableHeader>
+  /*
+                        
+ */
 
-          <TableBody>
-            {dashboardData.data.map((record) => (
-              <TableRow key={record.id}>
-                <TableCell>
-                  <div className="flex flex-row gap-2 items-center">
-                    {record.title}
-                    <div className="h-3 w-3 bg-green-700 rounded-full border">
-                      <span className="sr-only">Active</span>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>{record.updated_utc}</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <div className="p-2 border rounded-lg">
-                        <EllipsisIcon />
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>Settings</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Data Storage</DropdownMenuItem>
-                      <DropdownMenuItem>Visual Options</DropdownMenuItem>
-                      <DropdownMenuItem>Data Export</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
+  return (
+    <>
+      <Card className="my-4">
+        <CardHeader className="flex flex-row justify-between items-center">
+          <CardTitle>
+            Displaying Records ({`n = ${dashboardData.data?.length}`})
+          </CardTitle>
+          <Button
+            variant={"outline"}
+            className="flex flex-row gap-2"
+            onClick={() => {
+              handleUpdatedRecords();
+            }}
+          >
+            <PlusIcon className="w-6 h-6 text-gray-500" />
+            Add Record
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Updated</TableHead>
+                <TableHead className="text-right"></TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+            </TableHeader>
+
+            <TableBody>
+              {dashboardData.data.map((record) => (
+                <TableRow key={record.id}>
+                  <TableCell>
+                    <div className="flex flex-row gap-2 items-center">
+                      {record.title}
+                      <div className="h-3 w-3 bg-green-700 rounded-full border">
+                        <span className="sr-only">Active</span>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>{record.updated_utc}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <div className="p-2 border rounded-lg">
+                          <EllipsisIcon />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuLabel>Settings</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Data Storage</DropdownMenuItem>
+                        <DropdownMenuItem>Visual Options</DropdownMenuItem>
+                        <DropdownMenuItem>Data Export</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => {
+                            updateDialogState({
+                              data: record,
+                              records: dashboardData.data,
+                            });
+
+                            queryClient.invalidateQueries({
+                              queryKey: [KEY_DIALOG],
+                            });
+                            queryClient.refetchQueries({
+                              queryKey: [KEY_DIALOG],
+                            });
+                          }}
+                        >
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </>
   );
 }
