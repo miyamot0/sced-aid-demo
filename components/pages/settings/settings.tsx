@@ -5,8 +5,22 @@ import { useStorage } from "@/hooks/use-storage";
 import { useSearchParams } from "next/navigation";
 import StorageForm from "./forms/storage";
 import VisualsForm from "./forms/visuals";
+import Hero from "@/components/ui/hero";
+import { ReactNode } from "react";
 
 export type SettingsPageOption = "storage" | "visuals";
+
+const Wrapper = ({ children }: { children: ReactNode }) => {
+  return (
+    <main className="flex flex-col items-center justify-between">
+      <Hero
+        Title="Settings"
+        Description="Manage program settings and configuration"
+      ></Hero>
+      {children}
+    </main>
+  );
+};
 
 export default function SettingsPage() {
   const searchParams = useSearchParams();
@@ -24,8 +38,16 @@ export default function SettingsPage() {
   }
 
   if (param === "storage") {
-    return <StorageForm Settings={storageData.data} Search={param} />;
+    return (
+      <Wrapper>
+        <StorageForm Settings={storageData.data} Search={param} />
+      </Wrapper>
+    );
   } else {
-    return <VisualsForm Settings={storageData.data} Search={param} />;
+    return (
+      <Wrapper>
+        <VisualsForm Settings={storageData.data} Search={param} />
+      </Wrapper>
+    );
   }
 }

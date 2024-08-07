@@ -45,56 +45,54 @@ export default function VisualsForm({
   }
 
   return (
-    <div className="my-4">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="capitalize">{`${Search} Settings`}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-y-4">
-          <div className="border rounded flex flex-row justify-between p-4 items-center">
-            <LabelControl
-              Title="Theme"
-              Description="Toggle theme used by application"
-            />
-            <Select
-              value={dataLocal.theme}
-              onValueChange={(value) => {
-                handleSave({
-                  ...dataLocal,
-                  theme: value as "light" | "dark",
-                });
-              }}
-            >
-              <SelectTrigger className="w-fit min-w-24">
-                <SelectValue className="" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Theme</SelectLabel>
-                  <SelectItem value="light">Light Theme</SelectItem>
-                  <SelectItem value="dark">Dark Theme</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="capitalize">{`${Search} Settings`}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-y-4">
+        <div className="border rounded flex flex-row justify-between p-4 items-center">
+          <LabelControl
+            Title="Theme"
+            Description="Toggle theme used by application"
+          />
+          <Select
+            value={dataLocal.theme}
+            onValueChange={(value) => {
+              handleSave({
+                ...dataLocal,
+                theme: value as "light" | "dark",
+              });
+            }}
+          >
+            <SelectTrigger className="w-fit min-w-24">
+              <SelectValue className="" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Theme</SelectLabel>
+                <SelectItem value="light">Light Theme</SelectItem>
+                <SelectItem value="dark">Dark Theme</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-          <div className="border rounded flex flex-row justify-between p-4 items-center">
-            <LabelControl
-              Title="Enable Tooltips and Guidance"
-              Description="Enable or disable enhanced guidance and instructions"
-            />
-            <Switch
-              checked={dataLocal.tooltips}
-              onCheckedChange={(checked) => {
-                handleSave({
-                  ...dataLocal,
-                  tooltips: checked,
-                });
-              }}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        <div className="border rounded flex flex-row justify-between p-4 items-center">
+          <LabelControl
+            Title="Enable Tooltips and Guidance"
+            Description="Enable or disable enhanced guidance and instructions"
+          />
+          <Switch
+            checked={dataLocal.tooltips}
+            onCheckedChange={(checked) => {
+              handleSave({
+                ...dataLocal,
+                tooltips: checked,
+              });
+            }}
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 }

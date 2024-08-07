@@ -22,14 +22,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
 import { KEY_DIALOG, updateDialogState } from "@/hooks/use-dialog";
 import { cn } from "@/lib/utils";
+import Hero from "@/components/ui/hero";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const dashboardData = useRecords();
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   if (dashboardData.isLoading) {
     return <LoadingSpinner />;
@@ -41,6 +43,11 @@ export default function DashboardPage() {
 
   return (
     <>
+      <Hero
+        Title="Project Dashboard"
+        Description="Manage and follow-up on project decision-making"
+      ></Hero>
+
       <Card className="my-4">
         <CardHeader className="flex flex-row justify-between items-center">
           <CardTitle>
@@ -104,7 +111,10 @@ export default function DashboardPage() {
                     <TableCell>
                       {new Date(record.updated_utc).toLocaleDateString()}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="items-center flex flex-row justify-end gap-4">
+                      <Link href={`/workflow/${record.id}`}>
+                        <Button>Open</Button>
+                      </Link>
                       <DropdownMenu>
                         <DropdownMenuTrigger>
                           <div className="p-2 border rounded-lg">

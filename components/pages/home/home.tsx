@@ -51,13 +51,18 @@ export default function HomePage() {
 
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Version 0.0.1</CardTitle>
+          <CardTitle>Release of Version 0.0.1</CardTitle>
           <CardDescription>Date: 08/02/24</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex flex-col gap-4">
+          <p>
+            Prototype content and framework pushed for initial feedback and
+            proof of concept.
+          </p>
           <ul>
-            <li>Initial framework and settings</li>
-            <li>Core navigation and persistence</li>
+            <li>- Initial framework and settings</li>
+            <li>- Core navigation and persistence</li>
+            <li>- Base tree for methodological selection</li>
           </ul>
         </CardContent>
       </Card>

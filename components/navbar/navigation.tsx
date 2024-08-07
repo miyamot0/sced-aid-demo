@@ -74,24 +74,22 @@ export function Navigation() {
             <Settings2Icon />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Settings</DropdownMenuLabel>
-          <DropdownMenuSeparator />
+        <DropdownMenuContent align="end">
           <DropdownMenuItem
             onClick={() => {
               handleNav("storage");
             }}
           >
-            Data Storage
+            Data Settings
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
               handleNav("visuals");
             }}
           >
-            Visual Options
+            Display Options
           </DropdownMenuItem>
-          <DropdownMenuItem>Data Export</DropdownMenuItem>
+          <DropdownMenuItem>Information</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

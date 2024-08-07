@@ -37,29 +37,27 @@ export default function StorageForm({
   }
 
   return (
-    <div className="my-4">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="capitalize">{`${Search} Settings`}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-y-4">
-          <div className="border rounded flex flex-row justify-between p-4 items-center">
-            <LabelControl
-              Title="Automatically Save Progress"
-              Description="Overwrite settings and data without user interaction"
-            />
-            <Switch
-              checked={dataLocal.autosave}
-              onCheckedChange={(checked) => {
-                handleSave({
-                  ...dataLocal,
-                  autosave: checked,
-                });
-              }}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="capitalize">{`${Search} Settings`}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-y-4">
+        <div className="border rounded flex flex-row justify-between p-4 items-center">
+          <LabelControl
+            Title="Automatically Save Progress"
+            Description="Overwrite settings and data without user interaction"
+          />
+          <Switch
+            checked={dataLocal.autosave}
+            onCheckedChange={(checked) => {
+              handleSave({
+                ...dataLocal,
+                autosave: checked,
+              });
+            }}
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 }
