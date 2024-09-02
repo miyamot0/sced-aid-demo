@@ -1,0 +1,218 @@
+[
+    {
+        "Node": "RD1",
+        "Question": "Are you evaluating more than one intervention?",
+        "Yes": "RD1.1",
+        "No": "RD1.3",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.1",
+        "Question": "Is the behavioral response of interest \"reversible\" (free operant)?",
+        "Yes": "RD1.4",
+        "No": "RD1.2",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.2",
+        "Question": "Consider an Adapted Alternating Treatments Design",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.3",
+        "Question": "Is the behavior of interest \"reversible\" (free operant)?",
+        "Yes": "RD1.4",
+        "No": "RD1.10",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.4",
+        "Question": "Do you believe that discrimination of conditions will be a problem",
+        "Yes": "RD1.6",
+        "No": "RD1.5",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.5",
+        "Question": "Consider an alternating treatment or multi-element design",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.6",
+        "Question": "Do you believe that adaptation will be a problem",
+        "Yes": "RD1.7",
+        "No": "RD1.5",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.7",
+        "Question": "Are you measuring two or more behaviors where you reverse the contingencies?",
+        "Yes": "RD1.9",
+        "No": "RD1.8",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.8",
+        "Question": "Consider a withdrawal design",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.9",
+        "Question": "Consider a reversal design",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.10",
+        "Question": "Do you have 3 or more participants?",
+        "Yes": "RD1.11",
+        "No": "RD1.13",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.11",
+        "Question": "Are there at least 3 seperate behaviors?",
+        "Yes": "RD1.12",
+        "No": "RD1.16",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.12",
+        "Question": "Are there concerns about testing threats?",
+        "Yes": "RD1.14",
+        "No": "RD1.13",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.13",
+        "Question": "Consider a multiple probe design across behaviors",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.14",
+        "Question": "Consider a multiple baseline design across behaviors",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.15",
+        "Question": "Recruit more participants",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.16",
+        "Question": "Are there at least three separate settings/contexts?",
+        "Yes": "RD1.17",
+        "No": "RD1.15",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.17",
+        "Question": "Are there concerns about testing threats?",
+        "Yes": "RD1.18",
+        "No": "RD1.19",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.18",
+        "Question": "Consider a multiple probe across settings/contexts",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.19",
+        "Question": "Consider multiple baseline across settings/contexts",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.20",
+        "Question": "Are you able to run all participants through the study at the same time?",
+        "Yes": "RD1.21",
+        "No": "RD1.24",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.21",
+        "Question": "Are there concerns about testing threats?",
+        "Yes": "RD1.23",
+        "No": "RD1.22",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.22",
+        "Question": "Consider a concurrent multiple baseline across participants",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.23",
+        "Question": "Consider a multiple probe across participants",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.24",
+        "Question": "Are there concerns about testing threats?",
+        "Yes": "RD1.25",
+        "No": "RD1.26",
+        "End": "",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.25",
+        "Question": "Consider a non-concurrent multiple baseline probe across participants",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    },
+    {
+        "Node": "RD1.26",
+        "Question": "Consider a non-concurrent multiple baseline across participants",
+        "Yes": "",
+        "No": "",
+        "End": "TRUE",
+        "Resources": ""
+    }
+]

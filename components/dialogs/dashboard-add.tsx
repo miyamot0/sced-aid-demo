@@ -45,13 +45,15 @@ export default function DashboardAddDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create New Record</DialogTitle>
-          <DialogDescription className="flex flex-col gap-4 pt-4">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="label">Record Name</Label>
+          <DialogDescription className="flex flex-col gap-4 pt-4 w-full">
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="label" className="w-full">
+                Record Name
+              </Label>
               <Input
                 type="text"
                 id="label"
-                placeholder="Name for entry"
+                className="w-full"
                 value={inputLabel}
                 onChange={(e) => setInputLabel(e.target.value)}
               />
@@ -69,6 +71,7 @@ export default function DashboardAddDialog() {
                     updated_utc: new Date().toISOString(),
                     title: inputLabel,
                     active: true,
+                    nodes: [],
                   };
 
                   saveRecordsToLocal([...(data.records ?? []), new_record]);

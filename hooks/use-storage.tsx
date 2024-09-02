@@ -4,6 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 export const KEY_STORAGE = "storage-scda";
 export const KEY_RECORDS = "records-scda";
 
+export type SCDDecisionNode = {
+  category: "methodology";
+  Node: string;
+  Question: string;
+  Yes?: string;
+  No?: string;
+  Resources?: string;
+  End: boolean;
+  // Note: user selected
+  Selection?: string;
+};
+
 export type SettingsDataObject = {
   theme: "light" | "dark";
   autosave: boolean;
@@ -16,6 +28,7 @@ export type SCDADataObject = {
   updated_utc: string;
   title: string;
   active: boolean;
+  nodes: SCDDecisionNode[];
 };
 
 const default_settings: SettingsDataObject = {

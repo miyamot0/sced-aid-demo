@@ -71,7 +71,7 @@ export function Navigation() {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="p-2 border rounded-lg bg-white">
-            <Settings2Icon />
+            <Settings2Icon className="h-5 w-5" />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -82,14 +82,6 @@ export function Navigation() {
           >
             Data Settings
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              handleNav("visuals");
-            }}
-          >
-            Display Options
-          </DropdownMenuItem>
-          <DropdownMenuItem>Information</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -31,7 +31,6 @@ import Link from "next/link";
 export default function DashboardPage() {
   const dashboardData = useRecords();
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   if (dashboardData.isLoading) {
     return <LoadingSpinner />;
