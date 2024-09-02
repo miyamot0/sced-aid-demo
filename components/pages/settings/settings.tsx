@@ -2,9 +2,7 @@
 
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { useStorage } from "@/hooks/use-storage";
-import { useSearchParams } from "next/navigation";
 import StorageForm from "./forms/storage";
-import VisualsForm from "./forms/visuals";
 import Hero from "@/components/ui/hero";
 import { ReactNode } from "react";
 
@@ -23,10 +21,6 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
 };
 
 export default function SettingsPage() {
-  const searchParams = useSearchParams();
-  const search = searchParams.get("category") as SettingsPageOption;
-  const param: SettingsPageOption = search ? search : "storage";
-
   const storageData = useStorage();
 
   if (storageData.isLoading) {
@@ -37,17 +31,9 @@ export default function SettingsPage() {
     return <div>Error</div>;
   }
 
-  if (param === "storage") {
-    return (
-      <Wrapper>
-        <StorageForm Settings={storageData.data} Search={param} />
-      </Wrapper>
-    );
-  } else {
-    return (
-      <Wrapper>
-        <VisualsForm Settings={storageData.data} Search={param} />
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper>
+      <StorageForm Settings={storageData.data} />
+    </Wrapper>
+  );
 }

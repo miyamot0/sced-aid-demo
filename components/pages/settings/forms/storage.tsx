@@ -33,10 +33,8 @@ export const LabelControl = ({
 
 export default function StorageForm({
   Settings,
-  Search,
 }: {
   Settings: SettingsDataObject;
-  Search: SettingsPageOption;
 }) {
   const [dataLocal, setDataLocal] = useState<SettingsDataObject>(Settings);
 
