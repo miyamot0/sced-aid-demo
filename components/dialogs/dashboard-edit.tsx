@@ -46,12 +46,12 @@ export default function DashboardEditDialog() {
     return null;
   }
 
-  const close_dialog = () => {
+  const close_dialog = async () => {
     setInputLabel("");
     updateDialogState({ data: undefined, type: undefined });
 
-    queryClient.invalidateQueries({ queryKey: [KEY_DIALOG] });
-    queryClient.refetchQueries({
+    await queryClient.invalidateQueries({ queryKey: [KEY_DIALOG] });
+    await queryClient.refetchQueries({
       queryKey: [KEY_DIALOG],
     });
   };

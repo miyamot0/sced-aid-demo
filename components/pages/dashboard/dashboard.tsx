@@ -25,7 +25,6 @@ import {
 import { KEY_DIALOG, updateDialogState } from "@/hooks/use-dialog";
 import { cn } from "@/lib/utils";
 import Hero from "@/components/ui/hero";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function DashboardPage() {
@@ -55,17 +54,17 @@ export default function DashboardPage() {
           <Button
             variant={"outline"}
             className="flex flex-row gap-2"
-            onClick={() => {
+            onClick={async () => {
               updateDialogState({
                 data: undefined,
                 records: dashboardData.data,
                 type: "add",
               });
 
-              queryClient.invalidateQueries({
+              await queryClient.invalidateQueries({
                 queryKey: [KEY_DIALOG],
               });
-              queryClient.refetchQueries({
+              await queryClient.refetchQueries({
                 queryKey: [KEY_DIALOG],
               });
             }}
@@ -126,17 +125,17 @@ export default function DashboardPage() {
                           </DropdownMenuLabel>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            onClick={() => {
+                            onClick={async () => {
                               updateDialogState({
                                 data: record,
                                 records: dashboardData.data,
                                 type: "edit",
                               });
 
-                              queryClient.invalidateQueries({
+                              await queryClient.invalidateQueries({
                                 queryKey: [KEY_DIALOG],
                               });
-                              queryClient.refetchQueries({
+                              await queryClient.refetchQueries({
                                 queryKey: [KEY_DIALOG],
                               });
                             }}
@@ -145,17 +144,17 @@ export default function DashboardPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            onClick={() => {
+                            onClick={async () => {
                               updateDialogState({
                                 data: record,
                                 records: dashboardData.data,
                                 type: "delete",
                               });
 
-                              queryClient.invalidateQueries({
+                              await queryClient.invalidateQueries({
                                 queryKey: [KEY_DIALOG],
                               });
-                              queryClient.refetchQueries({
+                              await queryClient.refetchQueries({
                                 queryKey: [KEY_DIALOG],
                               });
                             }}

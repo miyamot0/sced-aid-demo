@@ -23,7 +23,7 @@ export const useDialogState = () => {
     },
     throwOnError: true,
     refetchOnMount: true,
-    refetchOnWindowFocus: true,
+    //refetchOnWindowFocus: true,
   });
 };
 

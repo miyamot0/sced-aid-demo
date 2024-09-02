@@ -54,10 +54,10 @@ export default function DashboardDeleteDialog() {
     return null;
   }
 
-  const close_dialog = () => {
+  const close_dialog = async () => {
     updateDialogState({ data: undefined });
-    queryClient.invalidateQueries({ queryKey: [KEY_DIALOG] });
-    queryClient.refetchQueries({
+    await queryClient.invalidateQueries({ queryKey: [KEY_DIALOG] });
+    await queryClient.refetchQueries({
       queryKey: [KEY_DIALOG],
     });
   };
