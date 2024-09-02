@@ -7,10 +7,11 @@ import ClientSideWrapper from "@/components/provider/client-side-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const APP_NAME = "PWA App";
-const APP_DEFAULT_TITLE = "My Awesome PWA App";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Best PWA app in the world!";
+const APP_NAME = "Qualicase Prototype (PWA)";
+const APP_DEFAULT_TITLE =
+  "This is a prototype for a single-case design decision-making tool";
+const APP_TITLE_TEMPLATE = "%s - Qualicse";
+const APP_DESCRIPTION = "This is an experimental decision-making aid";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
